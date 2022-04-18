@@ -31,6 +31,7 @@
         "OSL-3.0"
     ],
     "autoload": {
+    	"files": ["autoload.php"],
         "psr-4": {
             "MyFatoorah\\Library\\": ""
         }
