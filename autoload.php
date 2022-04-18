@@ -19,7 +19,7 @@
  * @license GNU General Public License v3.0
  */
  
-$mfLibFolder = __DIR__;
+$mfLibFolder = __DIR__ . '/src';
 $mfLibFile   = $mfLibFolder . '/MyfatoorahApiV2.php';
 
 if (!file_exists($mfLibFile) || (time() - filemtime($mfLibFile) > 86400)) {

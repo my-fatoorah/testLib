@@ -1,5 +1,5 @@
 {
-    "name": "myfatoorah/lib-test",
+    "name": "MyFatoorah/lib-test",
     "description": "MyFatoorah PHP Library",
     "version": "2.0.0",
     "type": "library",
@@ -33,7 +33,7 @@
     "autoload": {
     	"files": ["autoload.php"],
         "psr-4": {
-            "MyFatoorah\\Library\\": ""
+            "MyFatoorah\\Library\\": "src"
         }
     },
     "autoload-dev": {
