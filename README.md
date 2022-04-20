@@ -15,12 +15,12 @@ MyFatoorah Payment Gateway PHP library. It is a PHP library to integrate MyFatoo
 Via Composer
 
 ``` bash
-$ composer require myfatoorah/library
+composer require myfatoorah/library
 ```
 
 ## Usage
 
-###Payment Operations
+=Payment Operations
 
 ``` php
 $mfObj = new PaymentMyfatoorahApiV2($apiKey, $countryMode, $isTest);
@@ -62,7 +62,7 @@ echo 'Phone number: ' . $phone[1];
 ## Testing
 
 ``` bash
-$ phpunit
+phpunit
 ```
 
 ## Credits
