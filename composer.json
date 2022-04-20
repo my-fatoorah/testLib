@@ -1,5 +1,5 @@
 {
-    "name": "myfatoorah/lib-test",
+    "name": "myfatoorah/library",
     "description": "MyFatoorah PHP Library",
     "version": "2.0.0",
     "type": "library",
@@ -25,6 +25,16 @@
     "authors": [
         {
             "name": "MyFatoorah Plugin Team"
+        },
+        {
+            "name": "Nermeen Shoman",
+            "email": "nshoman@myfatoorah.com",
+            "role": "Senior Engineer"
+        },
+        {
+            "name": "Rasha Saeed",
+            "email": "rsaeed@myfatoorah.com",
+            "role": "Senior Engineer"
         }
     ],
     "license": [
