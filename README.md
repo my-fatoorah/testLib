@@ -20,7 +20,7 @@ composer require myfatoorah/library
 
 ## Usage
 
-### Payment Operations
+* Payment Operations
 
 ``` php
 $mfObj = new PaymentMyfatoorahApiV2($apiKey, $countryMode, $isTest);
@@ -39,7 +39,7 @@ echo "Click on <a href='$paymentLink' target='_blank'>$paymentLink</a> to pay wi
 
 ```
 
-### Shipping Operations
+* Shipping Operations
 
 ``` php
 $mfObj = new ShippingMyfatoorahApiV2($apiKey, $countryMode, $isTest);
@@ -49,7 +49,7 @@ echo 'Country code: ' . $json->Data[0]->CountryCode;
 echo 'Country name: ' . $json->Data[0]->CountryName;
 ```
 
-### General Operations
+* General Operations
 
 ``` php
 $phone = MyfatoorahApiV2::getPhone('+2 01234567890');
