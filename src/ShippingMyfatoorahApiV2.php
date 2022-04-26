@@ -19,7 +19,7 @@ class ShippingMyfatoorahApiV2 extends MyfatoorahApiV2 {
      * 
      * @return object
      */
-    function getShippingCountries() {
+    public function getShippingCountries() {
 
         $url  = "$this->apiURL/v2/GetCountries";
         $json = $this->callAPI($url, null, null, 'Get Countries');
@@ -37,7 +37,7 @@ class ShippingMyfatoorahApiV2 extends MyfatoorahApiV2 {
      * 
      * @return object
      */
-    function getShippingCities($method, $countryCode, $searchValue = null) {
+    public function getShippingCities($method, $countryCode, $searchValue = null) {
 
         $url = $this->apiURL . '/v2/GetCities'
                 . '?shippingMethod=' . $method
@@ -58,7 +58,7 @@ class ShippingMyfatoorahApiV2 extends MyfatoorahApiV2 {
      * 
      * @return object
      */
-    function calculateShippingCharge($curlData) {
+    public function calculateShippingCharge($curlData) {
 
         $url  = "$this->apiURL/v2/CalculateShippingCharge";
         $json = $this->callAPI($url, $curlData, null, 'Calculate Shipping Charge');

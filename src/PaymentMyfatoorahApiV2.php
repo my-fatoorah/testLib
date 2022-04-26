@@ -200,7 +200,7 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2 {
      * 
      * @return boolean
      */
-    function isAppleSystem() {
+    protected function isAppleSystem() {
         
         $userAgent = $_SERVER['HTTP_USER_AGENT'];
 
@@ -311,7 +311,7 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2 {
      * 
      * @return array
      */
-    function excutePayment($curlData, $gatewayId, $orderId = null) {
+    protected function excutePayment($curlData, $gatewayId, $orderId = null) {
 
         $curlData['PaymentMethodId'] = $gatewayId;
 
@@ -330,7 +330,7 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2 {
      * 
      * @return array
      */
-    function sendPayment($curlData, $orderId = null) {
+    protected function sendPayment($curlData, $orderId = null) {
 
         $curlData['NotificationOption'] = 'Lnk';
 
@@ -419,7 +419,7 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2 {
      * 
      * @return boolean
      */
-    function checkOrderInformation($json, $orderId = null, $price = null, $currncy = null) {
+    protected function checkOrderInformation($json, $orderId = null, $price = null, $currncy = null) {
         
         //check for the order ID
         if ($orderId && $json->Data->CustomerReference != $orderId) {
@@ -446,7 +446,7 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2 {
      * 
      * @return object
      */
-    function getSuccessData($json) {
+    protected function getSuccessData($json) {
         
         foreach ($json->Data->InvoiceTransactions as $transaction) {
             if ($transaction->TransactionStatus == 'Succss') {
@@ -469,7 +469,7 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2 {
      * 
      * @return object
      */
-    function getErrorData($json, $keyId, $KeyType) {
+    protected function getErrorData($json, $keyId, $KeyType) {
 
         //------------------
         //case 1: payment is Failed
@@ -515,7 +515,7 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2 {
      * 
      * @return object
      */
-    function getLastTransactionOfPaymentId($json, $keyId) {
+    protected function getLastTransactionOfPaymentId($json, $keyId) {
         
         foreach ($json->Data->InvoiceTransactions as $transaction) {
             if ($transaction->PaymentId == $keyId && $transaction->Error) {
@@ -530,7 +530,7 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2 {
      * 
      * @return object
      */
-    function getLastTransactionOfInvoiceId($json) {
+    protected function getLastTransactionOfInvoiceId($json) {
         
         usort($json->Data->InvoiceTransactions, function ($a, $b) {
             return strtotime($a->TransactionDate) - strtotime($b->TransactionDate);
