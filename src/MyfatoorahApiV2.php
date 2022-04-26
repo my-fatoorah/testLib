@@ -541,11 +541,11 @@ class MyfatoorahApiV2
         // });
 
         $output = implode(',', array_map(
-            function($v, $k) {
-                return sprintf("%s=%s", $k, $v);
-            },
-            $dataArray,
-            array_keys($dataArray)
+                        function($v, $k) {
+                            return sprintf("%s=%s", $k, $v);
+                        },
+                        $dataArray,
+                        array_keys($dataArray)
         ));
 
         //        $data      = utf8_encode($output);

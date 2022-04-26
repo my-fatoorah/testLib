@@ -265,6 +265,7 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2
 
         $paymentMethods = $this->getVendorGateways($invoiceValue, $displayCurrencyIso);
 
+        $pm = null;
         foreach ($paymentMethods as $method) {
             if ($method->$gatewayType == $gateway) {
                 $pm = $method;
