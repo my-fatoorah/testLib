@@ -12,7 +12,8 @@ use Exception;
  * @copyright 2021 MyFatoorah, All rights reserved
  * @license   GNU General Public License v3.0
  */
-class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2 {
+class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2
+{
 
     /**
      * To specify either the payment will be onsite or offsite
@@ -45,7 +46,8 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2 {
      * 
      * @return array
      */
-    public function getVendorGateways($invoiceValue = 0, $displayCurrencyIso = '', $isCached = false) {
+    public function getVendorGateways($invoiceValue = 0, $displayCurrencyIso = '', $isCached = false)
+    {
 
         $postFields = [
             'InvoiceAmount' => $invoiceValue,
@@ -69,7 +71,8 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2 {
      * 
      * @return array of Cached payment methods
      */
-    public function getCachedVendorGateways() {
+    public function getCachedVendorGateways()
+    {
 
         if (file_exists(self::$pmCachedFile)) {
             $cache = file_get_contents(self::$pmCachedFile);
@@ -88,8 +91,9 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2 {
      * 
      * @return array
      */
-    public function getVendorGatewaysByType($isDirect = false) {
-        
+    public function getVendorGatewaysByType($isDirect = false)
+    {
+
         $gateways = $this->getCachedVendorGateways();
 
         //        try {
@@ -124,8 +128,9 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2 {
      * 
      * @return array
      */
-    public function getCachedPaymentMethods() {
-        
+    public function getCachedPaymentMethods()
+    {
+
         $gateways       = $this->getCachedVendorGateways();
         $paymentMethods = ['all' => [], 'cards' => [], 'form' => []];
         foreach ($gateways as $g) {
@@ -144,7 +149,8 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2 {
      * 
      * @return array
      */
-    public function getPaymentMethodsForDisplay($invoiceValue, $displayCurrencyIso) {
+    public function getPaymentMethodsForDisplay($invoiceValue, $displayCurrencyIso)
+    {
 
         if (!empty(self::$paymentMethods)) {
             return self::$paymentMethods;
@@ -173,7 +179,8 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2 {
      * 
      * @return array
      */
-    protected function fillPaymentMethodsArray($g, $paymentMethods) {
+    protected function fillPaymentMethodsArray($g, $paymentMethods)
+    {
 
         if ($g->PaymentMethodCode != 'ap') {
 
@@ -200,11 +207,12 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2 {
      * 
      * @return boolean
      */
-    protected function isAppleSystem() {
-        
+    protected function isAppleSystem()
+    {
+
         $userAgent = $_SERVER['HTTP_USER_AGENT'];
 
-        if ((stripos($userAgent, 'iPod') || stripos($userAgent, 'iPhone') || stripos($userAgent, 'iPad') || stripos($userAgent, 'Mac') ) && (self::getBrowserName($userAgent) == 'Safari')) {
+        if ((stripos($userAgent, 'iPod') || stripos($userAgent, 'iPhone') || stripos($userAgent, 'iPad') || stripos($userAgent, 'Mac')) && (self::getBrowserName($userAgent) == 'Safari')) {
             return true;
         }
 
@@ -219,8 +227,9 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2 {
      * 
      * @return string
      */
-    public static function getBrowserName($userAgent) {
-        
+    public static function getBrowserName($userAgent)
+    {
+
         if (strpos($userAgent, 'Opera') || strpos($userAgent, 'OPR/')) {
             return 'Opera';
         } elseif (strpos($userAgent, 'Edge')) {
@@ -251,7 +260,8 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2 {
      * 
      * @throws Exception
      */
-    public function getPaymentMethod($gateway, $gatewayType = 'PaymentMethodId', $invoiceValue = 0, $displayCurrencyIso = '') {
+    public function getPaymentMethod($gateway, $gatewayType = 'PaymentMethodId', $invoiceValue = 0, $displayCurrencyIso = '')
+    {
 
         $paymentMethods = $this->getVendorGateways($invoiceValue, $displayCurrencyIso);
 
@@ -285,7 +295,8 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2 {
      * 
      * @return array
      */
-    public function getInvoiceURL($curlData, $gatewayId = 'myfatoorah', $orderId = null, $sessionId = null) {
+    public function getInvoiceURL($curlData, $gatewayId = 'myfatoorah', $orderId = null, $sessionId = null)
+    {
 
         $this->log('----------------------------------------------------------------------------------------------------------------------------------');
 
@@ -311,7 +322,8 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2 {
      * 
      * @return array
      */
-    protected function excutePayment($curlData, $gatewayId, $orderId = null) {
+    protected function excutePayment($curlData, $gatewayId, $orderId = null)
+    {
 
         $curlData['PaymentMethodId'] = $gatewayId;
 
@@ -330,7 +342,8 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2 {
      * 
      * @return array
      */
-    protected function sendPayment($curlData, $orderId = null) {
+    protected function sendPayment($curlData, $orderId = null)
+    {
 
         $curlData['NotificationOption'] = 'Lnk';
 
@@ -351,7 +364,8 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2 {
      * 
      * @return array
      */
-    public function directPayment($curlData, $gateway, $cardInfo, $orderId = null) {
+    public function directPayment($curlData, $gateway, $cardInfo, $orderId = null)
+    {
 
         $this->log('----------------------------------------------------------------------------------------------------------------------------------');
 
@@ -378,7 +392,8 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2 {
      * 
      * @throws Exception
      */
-    public function getPaymentStatus($keyId, $KeyType, $orderId = null, $price = null, $currncy = null) {
+    public function getPaymentStatus($keyId, $KeyType, $orderId = null, $price = null, $currncy = null)
+    {
 
         //payment inquiry
         $curlData = ['Key' => $keyId, 'KeyType' => $KeyType];
@@ -419,8 +434,9 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2 {
      * 
      * @return boolean
      */
-    protected function checkOrderInformation($json, $orderId = null, $price = null, $currncy = null) {
-        
+    protected function checkOrderInformation($json, $orderId = null, $price = null, $currncy = null)
+    {
+
         //check for the order ID
         if ($orderId && $json->Data->CustomerReference != $orderId) {
             return false;
@@ -446,8 +462,9 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2 {
      * 
      * @return object
      */
-    protected function getSuccessData($json) {
-        
+    protected function getSuccessData($json)
+    {
+
         foreach ($json->Data->InvoiceTransactions as $transaction) {
             if ($transaction->TransactionStatus == 'Succss') {
                 $json->Data->InvoiceStatus = 'Paid';
@@ -469,7 +486,8 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2 {
      * 
      * @return object
      */
-    protected function getErrorData($json, $keyId, $KeyType) {
+    protected function getErrorData($json, $keyId, $KeyType)
+    {
 
         //------------------
         //case 1: payment is Failed
@@ -515,8 +533,9 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2 {
      * 
      * @return object
      */
-    protected function getLastTransactionOfPaymentId($json, $keyId) {
-        
+    protected function getLastTransactionOfPaymentId($json, $keyId)
+    {
+
         foreach ($json->Data->InvoiceTransactions as $transaction) {
             if ($transaction->PaymentId == $keyId && $transaction->Error) {
                 return $transaction;
@@ -530,10 +549,11 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2 {
      * 
      * @return object
      */
-    protected function getLastTransactionOfInvoiceId($json) {
-        
+    protected function getLastTransactionOfInvoiceId($json)
+    {
+
         usort($json->Data->InvoiceTransactions, function ($a, $b) {
-            return strtotime($a->TransactionDate) - strtotime($b->TransactionDate);
+                return strtotime($a->TransactionDate) - strtotime($b->TransactionDate);
         });
 
         return end($json->Data->InvoiceTransactions);
@@ -552,7 +572,8 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2 {
      * 
      * @return object
      */
-    public function refund($paymentId, $amount, $currencyCode, $reason, $orderId = null) {
+    public function refund($paymentId, $amount, $currencyCode, $reason, $orderId = null)
+    {
 
         $rate = $this->getCurrencyRate($currencyCode);
         $url  = "$this->apiURL/v2/MakeRefund";
@@ -580,7 +601,8 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2 {
      * 
      * @return array
      */
-    public function embeddedPayment($curlData, $sessionId, $orderId = null) {
+    public function embeddedPayment($curlData, $sessionId, $orderId = null)
+    {
 
         $curlData['SessionId'] = $sessionId;
 
@@ -599,7 +621,8 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2 {
      * 
      * @return array
      */
-    public function getEmbeddedSession($userDefinedField = '', $orderId = null) {
+    public function getEmbeddedSession($userDefinedField = '', $orderId = null)
+    {
 
         $customerIdentifier = ['CustomerIdentifier' => $userDefinedField];
 

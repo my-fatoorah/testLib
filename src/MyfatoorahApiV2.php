@@ -22,7 +22,8 @@ use Exception;
  * @copyright 2021 MyFatoorah, All rights reserved
  * @license   GNU General Public License v3.0
  */
-class MyfatoorahApiV2 {
+class MyfatoorahApiV2
+{
     //-----------------------------------------------------------------------------------------------------------------------------------------
 
     /**
@@ -67,7 +68,8 @@ class MyfatoorahApiV2 {
      * @param string|object $loggerObj   It is optional. This is the file name or the logger object. It will be used in logging the payment/shipping events to help in debugging and monitor the process and connections. Leave it null, if you done't want to log the events.
      * @param string        $loggerFunc  It is optional. If $loggerObj is set as a logger object, you should set this var with the function name that will be used in the debugging.
      */
-    public function __construct($apiKey, $countryMode = 'KWT', $isTest = false, $loggerObj = null, $loggerFunc = null) {
+    public function __construct($apiKey, $countryMode = 'KWT', $isTest = false, $loggerObj = null, $loggerFunc = null)
+    {
 
         $mfCountries = $this->getMyFatoorahCountries();
 
@@ -96,7 +98,8 @@ class MyfatoorahApiV2 {
      * 
      * @throws Exception        Throw exception if there is any curl error or a validation error in the MyFatoorah API endpoint URL
      */
-    public function callAPI($url, $postFields = null, $orderId = null, $function = null) {
+    public function callAPI($url, $postFields = null, $orderId = null, $function = null)
+    {
 
         //to prevent json_encode adding lots of decimal digits
         ini_set('precision', 14);
@@ -160,11 +163,12 @@ class MyfatoorahApiV2 {
      * Handles POST Endpoint Errors Function
      *
      * @param object|string $json
-     * @param string $res
+     * @param string        $res
      * 
      * @return string
      */
-    protected function getAPIErrorPOST($json, $res) {
+    protected function getAPIErrorPOST($json, $res)
+    {
 
         if (isset($json->IsSuccess) && $json->IsSuccess == true) {
             return null;
@@ -178,7 +182,7 @@ class MyfatoorahApiV2 {
             $blogDatas = array_column($errorsObj, 'Error', 'Name');
 
             $err = implode(', ', array_map(function ($k, $v) {
-                        return "$k: $v";
+                            return "$k: $v";
                     }, array_keys($blogDatas), array_values($blogDatas)));
         } else if (isset($json->Data->ErrorMessage)) {
             $err = $json->Data->ErrorMessage;
@@ -199,11 +203,12 @@ class MyfatoorahApiV2 {
      * Handles GET Endpoint Errors Function
      * 
      * @param object|string $json
-     * @param string $res
+     * @param string        $res
      * 
      * @return string
      */
-    protected function getAPIErrorGET($json, $res) {
+    protected function getAPIErrorGET($json, $res)
+    {
 
         $stripHtmlStr = strip_tags($res);
         if ($res != $stripHtmlStr) {
@@ -229,11 +234,12 @@ class MyfatoorahApiV2 {
      * Handles Endpoint Errors Function
      * 
      * @param object|string $json
-     * @param string $res
+     * @param string        $res
      * 
      * @return string
      */
-    protected function getAPIError($json, $res) {
+    protected function getAPIError($json, $res)
+    {
 
         //to avoid blocked IP <html><head><title>403 Forbidden</title></head><body><center><h1>403 Forbidden</h1></center><hr><center>Microsoft-Azure-Application-Gateway/v2</center></body></html>
         $stripHtmlStr = strip_tags($res);
@@ -253,7 +259,7 @@ class MyfatoorahApiV2 {
             $blogDatas = array_column($errorsObj, 'Error', 'Name');
 
             $err = implode(', ', array_map(function ($k, $v) {
-                        return "$k: $v";
+                            return "$k: $v";
                     }, array_keys($blogDatas), array_values($blogDatas)));
         } else if (isset($json->Data->ErrorMessage)) {
             $err = $json->Data->ErrorMessage;
@@ -295,7 +301,8 @@ class MyfatoorahApiV2 {
      * 
      * @throws Exception    Throw exception if the input length is less than 3 chars or long than 14 chars.
      */
-    public static function getPhone($inputString) {
+    public static function getPhone($inputString)
+    {
 
         //remove any arabic digit
         $newNumbers = range(0, 9);
@@ -351,7 +358,8 @@ class MyfatoorahApiV2 {
      * 
      * @return null
      */
-    public function log($msg) {
+    public function log($msg)
+    {
 
         if (!$this->loggerObj) {
             return;
@@ -374,7 +382,8 @@ class MyfatoorahApiV2 {
      * 
      * @throws Exception Throw exception if the input unit is not support. Weight must be in kg, g, lbs, or oz. Default is kg.
      */
-    public static function getWeightRate($unit) {
+    public static function getWeightRate($unit)
+    {
 
         $unit1 = strtolower($unit);
         if ($unit1 == 'kg' || $unit1 == 'kgs' || $unit1 == 'كج' || $unit1 == 'كلغ' || $unit1 == 'كيلو جرام' || $unit1 == 'كيلو غرام') {
@@ -403,7 +412,8 @@ class MyfatoorahApiV2 {
      * 
      * @throws Exception    Throw exception if the input unit is not support. Dimension must be in cm, m, mm, in, or yd. Default is cm.
      */
-    public static function getDimensionRate($unit) {
+    public static function getDimensionRate($unit)
+    {
 
         $unit1 = strtolower($unit);
         if ($unit1 == 'cm' || $unit1 == 'سم') {
@@ -434,7 +444,8 @@ class MyfatoorahApiV2 {
      * 
      * @throws Exception    Throw exception if the input currency is not support by MyFatoorah portal account.
      */
-    public function getCurrencyRate($currency) {
+    public function getCurrencyRate($currency)
+    {
 
         $json = $this->getCurrencyRates();
         foreach ($json as $value) {
@@ -452,7 +463,8 @@ class MyfatoorahApiV2 {
      * 
      * @return object
      */
-    public function getCurrencyRates() {
+    public function getCurrencyRates()
+    {
 
         $url = "$this->apiURL/v2/GetCurrenciesExchangeList";
         return $this->callAPI($url, null, null, 'Get Currencies Exchange List');
@@ -470,7 +482,8 @@ class MyfatoorahApiV2 {
      * 
      * @return type
      */
-    protected function calcGatewayData($totalAmount, $currency, $paymentCurrencyIso, $allRatesData) {
+    protected function calcGatewayData($totalAmount, $currency, $paymentCurrencyIso, $allRatesData)
+    {
 
         //if ($currency != $paymentCurrencyIso) {
         foreach ($allRatesData as $data) {
@@ -512,7 +525,8 @@ class MyfatoorahApiV2 {
      * 
      * @return boolean
      */
-    public static function isSignatureValid($dataArray, $secret, $signature, $eventType = 0) {
+    public static function isSignatureValid($dataArray, $secret, $signature, $eventType = 0)
+    {
 
         if ($eventType == 2) {
             unset($dataArray['GatewayReference']);
@@ -527,11 +541,11 @@ class MyfatoorahApiV2 {
         // });
 
         $output = implode(',', array_map(
-                        function ($v, $k) {
-                            return sprintf("%s=%s", $k, $v);
-                        },
-                        $dataArray,
-                        array_keys($dataArray)
+                function ($v, $k) {
+                    return sprintf("%s=%s", $k, $v);
+                },
+                $dataArray,
+                array_keys($dataArray)
         ));
 
         //        $data      = utf8_encode($output);
@@ -553,7 +567,8 @@ class MyfatoorahApiV2 {
      * 
      * @return array of MyFatoorah data
      */
-    public static function getMyFatoorahCountries() {
+    public static function getMyFatoorahCountries()
+    {
 
         $cachedFile = dirname(__FILE__) . '/mf-config.json';
 
@@ -581,7 +596,8 @@ class MyfatoorahApiV2 {
      * 
      * @return array
      */
-    static function createNewMFConfigFile($cachedFile) {
+    static function createNewMFConfigFile($cachedFile)
+    {
 
         $curl = curl_init('https://portal.myfatoorah.com/Files/API/mf-config.json');
         curl_setopt_array($curl, array(
