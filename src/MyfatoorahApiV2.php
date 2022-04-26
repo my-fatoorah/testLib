@@ -252,17 +252,9 @@ class MyfatoorahApiV2
         }
 
         //Check for the errors
-        $err = $this->getValidationErrors($json);
-        if (!empty($err)) {
+        $err = $this->getJsonErrors($json);
+        if ($err) {
             return $err;
-        }
-
-        //if not get the message. this is due that sometimes errors with ValidationErrors has Error value null so either get the "Name" key or get the "Message"
-        //example {"IsSuccess":false,"Message":"Invalid data","ValidationErrors":[{"Name":"invoiceCreate.InvoiceItems","Error":""}],"Data":null}
-        //example {"Message":"No HTTP resource was found that matches the request URI 'https://apitest.myfatoorah.com/v2/SendPayment222'.","MessageDetail":"No route providing a controller name was found to match request URI 'https://apitest.myfatoorah.com/v2/SendPayment222'"}
-
-        if (isset($json->Message)) {
-            return $json->Message;
         }
 
         if (!$json) {
@@ -279,12 +271,12 @@ class MyfatoorahApiV2
     //-----------------------------------------------------------------------------------------------------------------------------------------
 
     /**
-     * Check for the validation/fields errors
+     * Check for the json (response model) errors
      * 
      * @param object|string $json
      * @return string
      */
-    protected function getValidationErrors($json)
+    protected function getJsonErrors($json)
     {
 
         if (isset($json->ValidationErrors) || isset($json->FieldsErrors)) {
@@ -301,8 +293,15 @@ class MyfatoorahApiV2
         if (isset($json->Data->ErrorMessage)) {
             return $json->Data->ErrorMessage;
         }
+        
+        //if not get the message. this is due that sometimes errors with ValidationErrors has Error value null so either get the "Name" key or get the "Message"
+        //example {"IsSuccess":false,"Message":"Invalid data","ValidationErrors":[{"Name":"invoiceCreate.InvoiceItems","Error":""}],"Data":null}
+        //example {"Message":"No HTTP resource was found that matches the request URI 'https://apitest.myfatoorah.com/v2/SendPayment222'.","MessageDetail":"No route providing a controller name was found to match request URI 'https://apitest.myfatoorah.com/v2/SendPayment222'"}
+        if (isset($json->Message)) {
+            return $json->Message;
+        }
 
-        return '';
+        return null;
     }
 
     //-----------------------------------------------------------------------------------------------------------------------------------------
