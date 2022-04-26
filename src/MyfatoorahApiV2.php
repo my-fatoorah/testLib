@@ -248,7 +248,7 @@ class MyfatoorahApiV2
         }
 
         if (isset($json->IsSuccess) && $json->IsSuccess == true) {
-            return null;
+            return '';
         }
 
         //Check for the errors
@@ -301,7 +301,7 @@ class MyfatoorahApiV2
             return $json->Message;
         }
 
-        return null;
+        return '';
     }
 
     //-----------------------------------------------------------------------------------------------------------------------------------------
