@@ -39,7 +39,7 @@ class ShippingMyfatoorahApiV2 extends MyfatoorahApiV2
      * 
      * @return object
      */
-    public function getShippingCities($method, $countryCode, $searchValue = null)
+    public function getShippingCities($method, $countryCode, $searchValue = '')
     {
 
         $url = $this->apiURL . '/v2/GetCities'

@@ -596,7 +596,7 @@ class MyfatoorahApiV2
      * 
      * @return array
      */
-    static function createNewMFConfigFile($cachedFile)
+    static protected function createNewMFConfigFile($cachedFile)
     {
 
         $curl = curl_init('https://portal.myfatoorah.com/Files/API/mf-config.json');
