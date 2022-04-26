@@ -30,6 +30,13 @@ class PaymentMyfatoorahApiV2Test extends \PHPUnit\Framework\TestCase {
     }
 
 //-----------------------------------------------------------------------------------------------------------------------------------------
+    /**
+     * change the accessibility of a function
+     * usage $method->invokeArgs($mfObj, [$ua]);
+     * 
+     * @param type $name
+     * @return type
+     */
     protected static function getMethod($name) {
         $class  = new \ReflectionClass('\MyFatoorah\Library\PaymentMyfatoorahApiV2');
         $method = $class->getMethod($name);
@@ -42,11 +49,7 @@ class PaymentMyfatoorahApiV2Test extends \PHPUnit\Framework\TestCase {
     /**
      * https://www.whatismybrowser.com/guides/the-latest-user-agent/firefox
      */
-    public function testGet_browser_name_Firefox() {
-
-
-        $mfObj  = new PaymentMyfatoorahApiV2($this->keys['valid']['apiKey'], $this->keys['valid']['countryMode'], $this->keys['valid']['isTest']);
-        $method = self::getMethod('get_browser_name');
+    public function testGetBrowserNameFirefox() {
 
         $firefoxUserAgents = [
             'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:98.0) Gecko/20100101 Firefox/98.0',
@@ -69,14 +72,12 @@ class PaymentMyfatoorahApiV2Test extends \PHPUnit\Framework\TestCase {
         ];
 
         foreach ($firefoxUserAgents as $ua) {
-            $expected = $method->invokeArgs($mfObj, [$ua]);
+            $expected = PaymentMyfatoorahApiV2::getBrowserName($ua);
             $this->assertEquals('Firefox', $expected);
         }
     }
 
-    public function testGet_browser_name_Safari() {
-        $mfObj  = new PaymentMyfatoorahApiV2($this->keys['valid']['apiKey'], $this->keys['valid']['countryMode'], $this->keys['valid']['isTest']);
-        $method = self::getMethod('get_browser_name');
+    public function testGetBrowserNameSafari() {
 
         $firefoxUserAgents = [
             'Mozilla/5.0 (Macintosh; Intel Mac OS X 12_3) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.3 Safari/605.1.15',
@@ -86,14 +87,12 @@ class PaymentMyfatoorahApiV2Test extends \PHPUnit\Framework\TestCase {
         ];
 
         foreach ($firefoxUserAgents as $ua) {
-            $expected = $method->invokeArgs($mfObj, [$ua]);
+            $expected = PaymentMyfatoorahApiV2::getBrowserName($ua);
             $this->assertEquals('Safari', $expected);
         }
     }
 
-    public function testGet_browser_name_Chrome() {
-        $mfObj  = new PaymentMyfatoorahApiV2($this->keys['valid']['apiKey'], $this->keys['valid']['countryMode'], $this->keys['valid']['isTest']);
-        $method = self::getMethod('get_browser_name');
+    public function testGetBrowserNameChrome() {
 
         $firefoxUserAgents = [
             'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.82 Safari/537.36',
@@ -115,7 +114,7 @@ class PaymentMyfatoorahApiV2Test extends \PHPUnit\Framework\TestCase {
         ];
 
         foreach ($firefoxUserAgents as $ua) {
-            $expected = $method->invokeArgs($mfObj, [$ua]);
+            $expected = PaymentMyfatoorahApiV2::getBrowserName($ua);
             $this->assertEquals('Chrome', $expected);
         }
     }

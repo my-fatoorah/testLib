@@ -183,7 +183,7 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2 {
     private function isAppleSystem() {
         $userAgent = $_SERVER['HTTP_USER_AGENT'];
 
-        if ((stripos($userAgent, 'iPod') || stripos($userAgent, 'iPhone') || stripos($userAgent, 'iPad') || stripos($userAgent, 'Mac') ) && ($this->get_browser_name($userAgent) == 'Safari')) {
+        if ((stripos($userAgent, 'iPod') || stripos($userAgent, 'iPhone') || stripos($userAgent, 'iPad') || stripos($userAgent, 'Mac') ) && (self::getBrowserName($userAgent) == 'Safari')) {
             return true;
         }
 
@@ -191,18 +191,18 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2 {
     }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
-    private function get_browser_name($user_agent) {
-        if (strpos($user_agent, 'Opera') || strpos($user_agent, 'OPR/')) {
+    public static function getBrowserName($userAgent) {
+        if (strpos($userAgent, 'Opera') || strpos($userAgent, 'OPR/')) {
             return 'Opera';
-        } elseif (strpos($user_agent, 'Edge')) {
+        } elseif (strpos($userAgent, 'Edge')) {
             return 'Edge';
-        } elseif (strpos($user_agent, 'Chrome') || strpos($user_agent, 'CriOS')) {
+        } elseif (strpos($userAgent, 'Chrome') || strpos($userAgent, 'CriOS')) {
             return 'Chrome';
-        } elseif (strpos($user_agent, 'Firefox') || strpos($user_agent, 'FxiOS')) {
+        } elseif (strpos($userAgent, 'Firefox') || strpos($userAgent, 'FxiOS')) {
             return 'Firefox';
-        } elseif (strpos($user_agent, 'Safari')) {
+        } elseif (strpos($userAgent, 'Safari')) {
             return 'Safari';
-        } elseif (strpos($user_agent, 'MSIE') || strpos($user_agent, 'Trident/7')) {
+        } elseif (strpos($userAgent, 'MSIE') || strpos($userAgent, 'Trident/7')) {
             return 'Internet Explorer';
         }
         return 'Other';
