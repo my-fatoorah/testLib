@@ -210,9 +210,14 @@ class MyfatoorahApiV2 {
             return trim(preg_replace('/\s+/', ' ', $stripHtmlStr));
         }
 
-        if (!($json) || (isset($json->Message))) {
-            $message = isset($json->Message) ? $json->Message : '';
-            return $message . ' Kindly, review your MyFatoorah admin configuration due to a wrong entry.';
+        $err = 'Kindly, review your MyFatoorah admin configuration due to a wrong entry.';
+
+        if (!$json) {
+            return $err;
+        }
+
+        if (isset($json->Message)) {
+            return $json->Message . ' ' . $err;
         }
 
         return null;
