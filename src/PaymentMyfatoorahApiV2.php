@@ -552,11 +552,9 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2
     protected function getLastTransactionOfInvoiceId($json)
     {
 
-        usort(
-            $json->Data->InvoiceTransactions, function ($a, $b) {
-                return strtotime($a->TransactionDate) - strtotime($b->TransactionDate);
-            }
-        );
+        usort($json->Data->InvoiceTransactions, function($a, $b) {
+            return strtotime($a->TransactionDate) - strtotime($b->TransactionDate);
+        });
 
         return end($json->Data->InvoiceTransactions);
     }

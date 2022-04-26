@@ -119,14 +119,12 @@ class MyfatoorahApiV2
         //***************************************
         $curl = curl_init($url);
 
-        curl_setopt_array(
-            $curl, array(
+        curl_setopt_array($curl, array(
             CURLOPT_CUSTOMREQUEST  => $request,
             CURLOPT_POSTFIELDS     => $fields,
             CURLOPT_HTTPHEADER     => ["Authorization: Bearer $this->apiKey", 'Content-Type: application/json'],
             CURLOPT_RETURNTRANSFER => true,
-            )
-        );
+        ));
 
         $res = curl_exec($curl);
         $err = curl_error($curl);
@@ -183,13 +181,9 @@ class MyfatoorahApiV2
             $errorsObj = isset($json->ValidationErrors) ? $json->ValidationErrors : $json->FieldsErrors;
             $blogDatas = array_column($errorsObj, 'Error', 'Name');
 
-            $err = implode(
-                ', ', array_map(
-                    function ($k, $v) {
-                                return "$k: $v";
-                    }, array_keys($blogDatas), array_values($blogDatas)
-                )
-            );
+            $err = implode(', ', array_map(function($k, $v) {
+                        return "$k: $v";
+                    }, array_keys($blogDatas), array_values($blogDatas)));
         } else if (isset($json->Data->ErrorMessage)) {
             $err = $json->Data->ErrorMessage;
         }
@@ -264,13 +258,9 @@ class MyfatoorahApiV2
             $errorsObj = isset($json->ValidationErrors) ? $json->ValidationErrors : $json->FieldsErrors;
             $blogDatas = array_column($errorsObj, 'Error', 'Name');
 
-            $err = implode(
-                ', ', array_map(
-                    function ($k, $v) {
-                                return "$k: $v";
-                    }, array_keys($blogDatas), array_values($blogDatas)
-                )
-            );
+            $err = implode(', ', array_map(function($k, $v) {
+                        return "$k: $v";
+                    }, array_keys($blogDatas), array_values($blogDatas)));
         } else if (isset($json->Data->ErrorMessage)) {
             $err = $json->Data->ErrorMessage;
         }
@@ -488,7 +478,7 @@ class MyfatoorahApiV2
      * @param double|integer $totalAmount
      * @param string         $currency
      * @param string         $paymentCurrencyIso
-     * @param array          $allRatesData
+     * @param object          $allRatesData
      * 
      * @return array
      */
@@ -550,15 +540,13 @@ class MyfatoorahApiV2
         //   return strcmp($a, $b);
         // });
 
-        $output = implode(
-            ',', array_map(
-                function ($v, $k) {
-                    return sprintf("%s=%s", $k, $v);
-                },
-                $dataArray,
-                array_keys($dataArray)
-            )
-        );
+        $output = implode(',', array_map(
+            function($v, $k) {
+                return sprintf("%s=%s", $k, $v);
+            },
+            $dataArray,
+            array_keys($dataArray)
+        ));
 
         //        $data      = utf8_encode($output);
         //        $keySecret = utf8_encode($secret);
@@ -612,12 +600,10 @@ class MyfatoorahApiV2
     {
 
         $curl = curl_init('https://portal.myfatoorah.com/Files/API/mf-config.json');
-        curl_setopt_array(
-            $curl, array(
+        curl_setopt_array($curl, array(
             CURLOPT_HTTPHEADER     => ['Content-Type: application/json'],
             CURLOPT_RETURNTRANSFER => true
-            )
-        );
+        ));
 
         $response  = curl_exec($curl);
         $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
