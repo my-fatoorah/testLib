@@ -247,14 +247,14 @@ class MyfatoorahApiV2
     protected function getAPIError($json, $res)
     {
 
+        if (isset($json->IsSuccess) && $json->IsSuccess == true) {
+            return '';
+        }
+        
         //to avoid blocked IP <html><head><title>403 Forbidden</title></head><body><center><h1>403 Forbidden</h1></center><hr><center>Microsoft-Azure-Application-Gateway/v2</center></body></html>
         $stripHtmlStr = strip_tags($res);
         if ($res != $stripHtmlStr) {
             return trim(preg_replace('/\s+/', ' ', $stripHtmlStr));
-        }
-
-        if (isset($json->IsSuccess) && $json->IsSuccess == true) {
-            return '';
         }
 
         //Check for the errors
@@ -271,7 +271,7 @@ class MyfatoorahApiV2
             return $json;
         }
 
-        return null;
+        return '';
     }
 
     //-----------------------------------------------------------------------------------------------------------------------------------------
