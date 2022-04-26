@@ -139,8 +139,8 @@ class MyfatoorahApiV2 {
         //***************************************
         //check for errors
         //***************************************
-//        $error = $this->{"getAPIError$request"}($json, $res);
         $error = $this->getAPIError($json, $res);
+        //$error = $this->{"getAPIError$request"}($json, $res);
         if ($error) {
             $this->log("$msgLog - Error: $error");
             throw new Exception($error);
