@@ -254,32 +254,13 @@ class MyfatoorahApiV2
         }
 
         if (isset($json->IsSuccess) && $json->IsSuccess == true) {
-            return null;
+            return '';
         }
 
         //Check for the errors
-        if (isset($json->ValidationErrors) || isset($json->FieldsErrors)) {
-            //$err = implode(', ', array_column($json->ValidationErrors, 'Error'));
-
-            $errorsObj = isset($json->ValidationErrors) ? $json->ValidationErrors : $json->FieldsErrors;
-            $blogDatas = array_column($errorsObj, 'Error', 'Name');
-
-            $err = implode(', ', array_map(function($k, $v) {
-                        return "$k: $v";
-                    }, array_keys($blogDatas), array_values($blogDatas)));
-        } else if (isset($json->Data->ErrorMessage)) {
-            $err = $json->Data->ErrorMessage;
-        }
-
-        //if not get the message. this is due that sometimes errors with ValidationErrors has Error value null so either get the "Name" key or get the "Message"
-        //example {"IsSuccess":false,"Message":"Invalid data","ValidationErrors":[{"Name":"invoiceCreate.InvoiceItems","Error":""}],"Data":null}
-        //example {"Message":"No HTTP resource was found that matches the request URI 'https://apitest.myfatoorah.com/v2/SendPayment222'.","MessageDetail":"No route providing a controller name was found to match request URI 'https://apitest.myfatoorah.com/v2/SendPayment222'"}
-        if (!empty($err)) {
+        $err = $this->getJsonErrors($json);
+        if ($err) {
             return $err;
-        }
-
-        if (isset($json->Message)) {
-            return $json->Message;
         }
 
         if (!$json) {
@@ -289,6 +270,7 @@ class MyfatoorahApiV2
         if (is_string($json)) {
             return $json;
         }
+
         return null;
     }
 
