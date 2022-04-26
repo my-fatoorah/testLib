@@ -37,7 +37,7 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2 {
 //---------------------------------------------------------------------------------------------------------------------------------------------------    
 
     /**
-     * List available Payment Gateways.
+     * List available Payment Gateways. (POST API)
      * 
      * @param real $invoiceValue
      * @param string $displayCurrencyIso
@@ -270,7 +270,7 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2 {
 //-----------------------------------------------------------------------------------------------------------------------------------------
 
     /**
-     * 
+     * (POST API)
      * @param array $curlData
      * @param integer|string $gatewayId
      * @param integer|string $orderId (default value: null) used in log file
@@ -288,7 +288,7 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2 {
 //-----------------------------------------------------------------------------------------------------------------------------------------
 
     /**
-     * 
+     * (POST API)
      * @param array $curlData
      * @param integer|string $orderId (default value: null) used in log file
      * @return array
@@ -305,7 +305,7 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2 {
 //-----------------------------------------------------------------------------------------------------------------------------------------
 
     /**
-     * Get the direct payment URL and the invoice id
+     * Get the direct payment URL and the invoice id (POST API)
      * 
      * @param array $curlData
      * @param integer|string $gateway
@@ -328,7 +328,7 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2 {
 //-----------------------------------------------------------------------------------------------------------------------------------------
 
     /**
-     * Get the Payment Transaction Status
+     * Get the Payment Transaction Status (POST API)
      * 
      * @param string $keyId
      * @param string $KeyType
@@ -481,7 +481,7 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2 {
 //-----------------------------------------------------------------------------------------------------------------------------------------
 
     /**
-     * Refund a given Payment
+     * Refund a given Payment (POST API)
      * 
      * @param integer|string $paymentId
      * @param real|string $amount
@@ -510,7 +510,7 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2 {
 //-----------------------------------------------------------------------------------------------------------------------------------------
 
     /**
-     * 
+     * (POST API)
      * @param array $curlData
      * @param integer|string $sessionId
      * @param integer|string $orderId (default value: null) used in log file
@@ -528,7 +528,7 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2 {
 //-----------------------------------------------------------------------------------------------------------------------------------------
 
     /**
-     * 
+     * (POST API)
      * @param integer|string $orderId (default value: null) used in log file
      * @return array
      */

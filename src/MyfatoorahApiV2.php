@@ -139,8 +139,8 @@ class MyfatoorahApiV2 {
         //***************************************
         //check for errors
         //***************************************
-
-        $error = $this->{"getAPIError$request"}($json, $res);
+//        $error = $this->{"getAPIError$request"}($json, $res);
+        $error = $this->getAPIError($json, $res);
         if ($error) {
             $this->log("$msgLog - Error: $error");
             throw new Exception($error);
@@ -206,10 +206,64 @@ class MyfatoorahApiV2 {
         if (!($json) || (isset($json->Message))) {
             $message = isset($json->Message) ? $json->Message : '';
             return $message . ' Kindly, review your MyFatoorah admin configuration due to a wrong entry.';
-        } else if ($json != '') {
-            return $json;
         }
 
+        return null;
+    }
+
+//-----------------------------------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Handles Endpoint Errors Function
+     * 
+     * @param type $json
+     * @param type $res
+     * @return type
+     */
+    function getAPIError($json, $res) {
+
+        //to avoid blocked IP <html><head><title>403 Forbidden</title></head><body><center><h1>403 Forbidden</h1></center><hr><center>Microsoft-Azure-Application-Gateway/v2</center></body></html>
+        $stripHtmlStr = strip_tags($res);
+        if ($res != $stripHtmlStr) {
+            return trim(preg_replace('/\s+/', ' ', $stripHtmlStr));
+        }
+
+        if (isset($json->IsSuccess) && $json->IsSuccess == true) {
+            return null;
+        }
+
+        //Check for the errors
+        if (isset($json->ValidationErrors) || isset($json->FieldsErrors)) {
+            //$err = implode(', ', array_column($json->ValidationErrors, 'Error'));
+
+            $errorsObj = isset($json->ValidationErrors) ? $json->ValidationErrors : $json->FieldsErrors;
+            $blogDatas = array_column($errorsObj, 'Error', 'Name');
+
+            $err = implode(', ', array_map(function ($k, $v) {
+                        return "$k: $v";
+                    }, array_keys($blogDatas), array_values($blogDatas)));
+        } else if (isset($json->Data->ErrorMessage)) {
+            $err = $json->Data->ErrorMessage;
+        }
+
+        //if not get the message. this is due that sometimes errors with ValidationErrors has Error value null so either get the "Name" key or get the "Message"
+        //example {"IsSuccess":false,"Message":"Invalid data","ValidationErrors":[{"Name":"invoiceCreate.InvoiceItems","Error":""}],"Data":null}
+        //example {"Message":"No HTTP resource was found that matches the request URI 'https://apitest.myfatoorah.com/v2/SendPayment222'.","MessageDetail":"No route providing a controller name was found to match request URI 'https://apitest.myfatoorah.com/v2/SendPayment222'"}
+        if (!empty($err)) {
+            return $err;
+        }
+
+        if (isset($json->Message)) {
+            return $json->Message;
+        }
+
+        if (!$json) {
+            return (!empty($res) ? $res : 'Kindly, review your MyFatoorah admin configuration due to a wrong entry.');
+        }
+
+        if (is_string($json)) {
+            return $json;
+        }
         return null;
     }
 
@@ -359,7 +413,7 @@ class MyfatoorahApiV2 {
      */
     public function getCurrencyRate($currency) {
         $json = $this->getCurrencyRates();
-        foreach (($json) as $value) {
+        foreach ($json as $value) {
             if ($value->Text == $currency) {
                 return $value->Value;
             }
@@ -370,7 +424,7 @@ class MyfatoorahApiV2 {
 //-----------------------------------------------------------------------------------------------------------------------------------------
 
     /**
-     * Get the rate that will convert the given currency to the default currency of MyFatoorah portal account.
+     * Get the rate that will convert the given currency to the default currency of MyFatoorah portal account. (GET API)
      * 
      * @param string        $currency The currency that will be converted into the currency of MyFatoorah portal account.
      * @return string       The conversion rate that will convert the given currency into the default currency of MyFatoorah portal account.

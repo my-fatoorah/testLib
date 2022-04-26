@@ -15,7 +15,7 @@ class ShippingMyfatoorahApiV2 extends MyfatoorahApiV2 {
 //-----------------------------------------------------------------------------------------------------------------------------------------    
 
     /**
-     * Get MyFatoorah Shipping Countries
+     * Get MyFatoorah Shipping Countries (GET API)
      * 
      * @return object
      */
@@ -28,7 +28,7 @@ class ShippingMyfatoorahApiV2 extends MyfatoorahApiV2 {
 //-----------------------------------------------------------------------------------------------------------------------------------------
 
     /**
-     * Get Shipping Cities
+     * Get Shipping Cities (GET API)
      * 
      * @param integer $method       [1 for DHL, 2 for Aramex]
      * @param string $countryCode   It can be obtained from getShippingCountries function
@@ -46,7 +46,7 @@ class ShippingMyfatoorahApiV2 extends MyfatoorahApiV2 {
 //-----------------------------------------------------------------------------------------------------------------------------------------
 
     /**
-     * Calculate Shipping Charge
+     * Calculate Shipping Charge (POST API)
      * 
      * @param array $curlData
      * @return object
