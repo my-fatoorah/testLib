@@ -181,7 +181,7 @@ class MyfatoorahApiV2
             $errorsObj = isset($json->ValidationErrors) ? $json->ValidationErrors : $json->FieldsErrors;
             $blogDatas = array_column($errorsObj, 'Error', 'Name');
 
-            $err = implode(', ', array_map(function($k, $v) {
+            $err = implode(', ', array_map(function ($k, $v) {
                         return "$k: $v";
                     }, array_keys($blogDatas), array_values($blogDatas)));
         } else if (isset($json->Data->ErrorMessage)) {
@@ -252,25 +252,14 @@ class MyfatoorahApiV2
         }
 
         //Check for the errors
-        if (isset($json->ValidationErrors) || isset($json->FieldsErrors)) {
-            //$err = implode(', ', array_column($json->ValidationErrors, 'Error'));
-
-            $errorsObj = isset($json->ValidationErrors) ? $json->ValidationErrors : $json->FieldsErrors;
-            $blogDatas = array_column($errorsObj, 'Error', 'Name');
-
-            $err = implode(', ', array_map(function($k, $v) {
-                        return "$k: $v";
-                    }, array_keys($blogDatas), array_values($blogDatas)));
-        } else if (isset($json->Data->ErrorMessage)) {
-            $err = $json->Data->ErrorMessage;
+        $err = $this->getValidationErrors($json);
+        if (!empty($err)) {
+            return $err;
         }
 
         //if not get the message. this is due that sometimes errors with ValidationErrors has Error value null so either get the "Name" key or get the "Message"
         //example {"IsSuccess":false,"Message":"Invalid data","ValidationErrors":[{"Name":"invoiceCreate.InvoiceItems","Error":""}],"Data":null}
         //example {"Message":"No HTTP resource was found that matches the request URI 'https://apitest.myfatoorah.com/v2/SendPayment222'.","MessageDetail":"No route providing a controller name was found to match request URI 'https://apitest.myfatoorah.com/v2/SendPayment222'"}
-        if (!empty($err)) {
-            return $err;
-        }
 
         if (isset($json->Message)) {
             return $json->Message;
@@ -283,7 +272,37 @@ class MyfatoorahApiV2
         if (is_string($json)) {
             return $json;
         }
+
         return null;
+    }
+
+    //-----------------------------------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Check for the validation/fields errors
+     * 
+     * @param object|string $json
+     * @return string
+     */
+    protected function getValidationErrors($json)
+    {
+
+        if (isset($json->ValidationErrors) || isset($json->FieldsErrors)) {
+            //$err = implode(', ', array_column($json->ValidationErrors, 'Error'));
+
+            $errorsObj = isset($json->ValidationErrors) ? $json->ValidationErrors : $json->FieldsErrors;
+            $blogDatas = array_column($errorsObj, 'Error', 'Name');
+
+            return implode(', ', array_map(function ($k, $v) {
+                        return "$k: $v";
+                    }, array_keys($blogDatas), array_values($blogDatas)));
+        }
+
+        if (isset($json->Data->ErrorMessage)) {
+            return $json->Data->ErrorMessage;
+        }
+
+        return '';
     }
 
     //-----------------------------------------------------------------------------------------------------------------------------------------
@@ -478,7 +497,7 @@ class MyfatoorahApiV2
      * @param double|integer $totalAmount
      * @param string         $currency
      * @param string         $paymentCurrencyIso
-     * @param object          $allRatesData
+     * @param object         $allRatesData
      * 
      * @return array
      */
@@ -541,7 +560,7 @@ class MyfatoorahApiV2
         // });
 
         $output = implode(',', array_map(
-                        function($v, $k) {
+                        function ($v, $k) {
                             return sprintf("%s=%s", $k, $v);
                         },
                         $dataArray,
