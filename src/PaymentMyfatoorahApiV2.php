@@ -40,9 +40,9 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2
     /**
      * List available Payment Gateways. (POST API)
      * 
-     * @param real    $invoiceValue
-     * @param string  $displayCurrencyIso
-     * @param boolean $isCached
+     * @param double|integer $invoiceValue
+     * @param string         $displayCurrencyIso
+     * @param boolean        $isCached
      * 
      * @return array
      */
@@ -144,8 +144,8 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2
     /**
      * List available Payment Methods
      * 
-     * @param real   $invoiceValue
-     * @param string $displayCurrencyIso
+     * @param double|integer $invoiceValue
+     * @param string         $displayCurrencyIso
      * 
      * @return array
      */
@@ -174,8 +174,8 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2
 
     /**
      * 
-     * @param type $g
-     * @param type $paymentMethods
+     * @param object $g
+     * @param array  $paymentMethods
      * 
      * @return array
      */
@@ -223,7 +223,7 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2
 
     /**
      * 
-     * @param type $userAgent
+     * @param string $userAgent
      * 
      * @return string
      */
@@ -251,10 +251,10 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2
     /**
      * Get Payment Method Object
      * 
-     * @param string $gateway
-     * @param string $gatewayType        ['PaymentMethodId', 'PaymentMethodCode']
-     * @param real   $invoiceValue
-     * @param string $displayCurrencyIso
+     * @param string         $gateway
+     * @param string         $gatewayType        ['PaymentMethodId', 'PaymentMethodCode']
+     * @param double|integer $invoiceValue
+     * @param string         $displayCurrencyIso
      * 
      * @return object
      * 
@@ -528,8 +528,8 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2
 
     /**
      * 
-     * @param object $json
-     * @param type   $keyId
+     * @param object         $json
+     * @param integer|string $keyId
      * 
      * @return object
      */
@@ -552,9 +552,11 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2
     protected function getLastTransactionOfInvoiceId($json)
     {
 
-        usort($json->Data->InvoiceTransactions, function ($a, $b) {
+        usort(
+            $json->Data->InvoiceTransactions, function ($a, $b) {
                 return strtotime($a->TransactionDate) - strtotime($b->TransactionDate);
-        });
+            }
+        );
 
         return end($json->Data->InvoiceTransactions);
     }
@@ -564,11 +566,11 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2
     /**
      * Refund a given Payment (POST API)
      * 
-     * @param integer|string $paymentId    payment id that will be refunded 
-     * @param real|string    $amount       the refund amount
-     * @param string         $currencyCode the refund currency
-     * @param string         $reason       resone of the refund
-     * @param integer|string $orderId      used in log file (default value: null)
+     * @param integer|string        $paymentId    payment id that will be refunded 
+     * @param double|integer|string $amount       the refund amount
+     * @param string                $currencyCode the refund currency
+     * @param string                $reason       reason of the refund
+     * @param integer|string        $orderId      used in log file (default value: null)
      * 
      * @return object
      */
