@@ -43,7 +43,7 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2 {
      * @param string  $displayCurrencyIso
      * @param boolean $isCached
      * 
-     * @return type
+     * @return array
      */
     public function getVendorGateways($invoiceValue = 0, $displayCurrencyIso = '', $isCached = false) {
 
@@ -171,7 +171,7 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2 {
      * @param type $g
      * @param type $paymentMethods
      * 
-     * @return type
+     * @return array
      */
     protected function fillPaymentMethodsArray($g, $paymentMethods) {
 
@@ -513,7 +513,7 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2 {
      * @param object $json
      * @param type   $keyId
      * 
-     * @return type
+     * @return object
      */
     function getLastTransactionOfPaymentId($json, $keyId) {
         
@@ -528,7 +528,7 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2 {
      * 
      * @param object $json
      * 
-     * @return type
+     * @return object
      */
     function getLastTransactionOfInvoiceId($json) {
         
