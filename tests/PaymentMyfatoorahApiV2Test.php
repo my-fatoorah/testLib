@@ -51,7 +51,7 @@ class PaymentMyfatoorahApiV2Test extends \PHPUnit\Framework\TestCase {
      */
     public function testGetBrowserNameFirefox() {
 
-        $firefoxUserAgents = [
+        $userAgents = [
             'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:98.0) Gecko/20100101 Firefox/98.0',
             'Mozilla/5.0 (Macintosh; Intel Mac OS X 12.3; rv:98.0) Gecko/20100101 Firefox/98.0',
             'Mozilla/5.0 (X11; Linux i686; rv:98.0) Gecko/20100101 Firefox/98.0',
@@ -71,7 +71,7 @@ class PaymentMyfatoorahApiV2Test extends \PHPUnit\Framework\TestCase {
             'Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:91.0) Gecko/20100101 Firefox/91.0'
         ];
 
-        foreach ($firefoxUserAgents as $ua) {
+        foreach ($userAgents as $ua) {
             $expected = PaymentMyfatoorahApiV2::getBrowserName($ua);
             $this->assertEquals('Firefox', $expected);
         }
@@ -79,14 +79,14 @@ class PaymentMyfatoorahApiV2Test extends \PHPUnit\Framework\TestCase {
 
     public function testGetBrowserNameSafari() {
 
-        $firefoxUserAgents = [
+        $userAgents = [
             'Mozilla/5.0 (Macintosh; Intel Mac OS X 12_3) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.3 Safari/605.1.15',
             'Mozilla/5.0 (iPhone; CPU iPhone OS 15_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.3 Mobile/15E148 Safari/604.1',
             'Mozilla/5.0 (iPad; CPU OS 15_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.3 Mobile/15E148 Safari/604.1',
             'Mozilla/5.0 (iPod touch; CPU iPhone 15_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.3 Mobile/15E148 Safari/604.1'
         ];
 
-        foreach ($firefoxUserAgents as $ua) {
+        foreach ($userAgents as $ua) {
             $expected = PaymentMyfatoorahApiV2::getBrowserName($ua);
             $this->assertEquals('Safari', $expected);
         }
@@ -94,7 +94,7 @@ class PaymentMyfatoorahApiV2Test extends \PHPUnit\Framework\TestCase {
 
     public function testGetBrowserNameChrome() {
 
-        $firefoxUserAgents = [
+        $userAgents = [
             'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.82 Safari/537.36',
             'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.82 Safari/537.36',
             'Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.82 Safari/537.36',
@@ -113,7 +113,7 @@ class PaymentMyfatoorahApiV2Test extends \PHPUnit\Framework\TestCase {
             'Mozilla/5.0 (Linux; Android 10; LM-Q710(FGN)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.73 Mobile Safari/537.36'
         ];
 
-        foreach ($firefoxUserAgents as $ua) {
+        foreach ($userAgents as $ua) {
             $expected = PaymentMyfatoorahApiV2::getBrowserName($ua);
             $this->assertEquals('Chrome', $expected);
         }
