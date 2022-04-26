@@ -159,12 +159,12 @@ class MyfatoorahApiV2 {
     /**
      * Handles POST Endpoint Errors Function
      *
-     * @param object $json
+     * @param object|string $json
      * @param string $res
      * 
      * @return string
      */
-    function getAPIErrorPOST($json, $res) {
+    protected function getAPIErrorPOST($json, $res) {
 
         if (isset($json->IsSuccess) && $json->IsSuccess == true) {
             return null;
@@ -198,12 +198,12 @@ class MyfatoorahApiV2 {
     /**
      * Handles GET Endpoint Errors Function
      * 
-     * @param object $json
+     * @param object|string $json
      * @param string $res
      * 
      * @return string
      */
-    function getAPIErrorGET($json, $res) {
+    protected function getAPIErrorGET($json, $res) {
 
         $stripHtmlStr = strip_tags($res);
         if ($res != $stripHtmlStr) {
@@ -223,12 +223,12 @@ class MyfatoorahApiV2 {
     /**
      * Handles Endpoint Errors Function
      * 
-     * @param object $json
+     * @param object|string $json
      * @param string $res
      * 
      * @return string
      */
-    function getAPIError($json, $res) {
+    protected function getAPIError($json, $res) {
 
         //to avoid blocked IP <html><head><title>403 Forbidden</title></head><body><center><h1>403 Forbidden</h1></center><hr><center>Microsoft-Azure-Application-Gateway/v2</center></body></html>
         $stripHtmlStr = strip_tags($res);
@@ -365,9 +365,9 @@ class MyfatoorahApiV2 {
      * 
      * @param string $unit It is the weight unit used. Weight must be in kg, g, lbs, or oz. Default is kg.
      * 
-     * @return real         The conversion rate that will convert the given unit into the kg. 
+     * @return double|integer The conversion rate that will convert the given unit into the kg. 
      * 
-     * @throws Exception    Throw exception if the input unit is not support. Weight must be in kg, g, lbs, or oz. Default is kg.
+     * @throws Exception Throw exception if the input unit is not support. Weight must be in kg, g, lbs, or oz. Default is kg.
      */
     public static function getWeightRate($unit) {
 
@@ -394,7 +394,7 @@ class MyfatoorahApiV2 {
      * 
      * @param string $unit It is the dimension unit used in width, hight, or depth. Dimension must be in cm, m, mm, in, or yd. Default is cm.
      * 
-     * @return real         The conversion rate that will convert the given unit into the cm.
+     * @return double|integer         The conversion rate that will convert the given unit into the cm.
      * 
      * @throws Exception    Throw exception if the input unit is not support. Dimension must be in cm, m, mm, in, or yd. Default is cm.
      */
@@ -465,7 +465,7 @@ class MyfatoorahApiV2 {
      * 
      * @return type
      */
-    function calcGatewayData($totalAmount, $currency, $paymentCurrencyIso, $allRatesData) {
+    protected function calcGatewayData($totalAmount, $currency, $paymentCurrencyIso, $allRatesData) {
 
         //if ($currency != $paymentCurrencyIso) {
         foreach ($allRatesData as $data) {
