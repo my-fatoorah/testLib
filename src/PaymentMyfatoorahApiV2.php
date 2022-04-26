@@ -554,9 +554,9 @@ class PaymentMyfatoorahApiV2 extends MyfatoorahApiV2
     {
 
         usort(
-            $json->Data->InvoiceTransactions, function ($a, $b) {
-                return strtotime($a->TransactionDate) - strtotime($b->TransactionDate);
-            }
+                $json->Data->InvoiceTransactions, function($a, $b) {
+                    return strtotime($a->TransactionDate) - strtotime($b->TransactionDate);
+                }
         );
 
         return end($json->Data->InvoiceTransactions);

@@ -120,12 +120,12 @@ class MyfatoorahApiV2
         $curl = curl_init($url);
 
         curl_setopt_array(
-            $curl, array(
+                $curl, array(
             CURLOPT_CUSTOMREQUEST  => $request,
             CURLOPT_POSTFIELDS     => $fields,
             CURLOPT_HTTPHEADER     => ["Authorization: Bearer $this->apiKey", 'Content-Type: application/json'],
             CURLOPT_RETURNTRANSFER => true,
-            )
+                )
         );
 
         $res = curl_exec($curl);
@@ -184,11 +184,11 @@ class MyfatoorahApiV2
             $blogDatas = array_column($errorsObj, 'Error', 'Name');
 
             $err = implode(
-                ', ', array_map(
-                    function ($k, $v) {
-                            return "$k: $v";
-                    }, array_keys($blogDatas), array_values($blogDatas)
-                )
+                    ', ', array_map(
+                            function($k, $v) {
+                                return "$k: $v";
+                            }, array_keys($blogDatas), array_values($blogDatas)
+                    )
             );
         } else if (isset($json->Data->ErrorMessage)) {
             $err = $json->Data->ErrorMessage;
@@ -311,18 +311,18 @@ class MyfatoorahApiV2
             $blogDatas = array_column($errorsObj, 'Error', 'Name');
 
             return implode(
-                ', ', array_map(
-                    function ($k, $v) {
-                            return "$k: $v";
-                    }, array_keys($blogDatas), array_values($blogDatas)
-                )
+                    ', ', array_map(
+                            function($k, $v) {
+                                return "$k: $v";
+                            }, array_keys($blogDatas), array_values($blogDatas)
+                    )
             );
         }
 
         if (isset($json->Data->ErrorMessage)) {
             return $json->Data->ErrorMessage;
         }
-        
+
         //if not get the message. this is due that sometimes errors with ValidationErrors has Error value null so either get the "Name" key or get the "Message"
         //example {"IsSuccess":false,"Message":"Invalid data","ValidationErrors":[{"Name":"invoiceCreate.InvoiceItems","Error":""}],"Data":null}
         //example {"Message":"No HTTP resource was found that matches the request URI 'https://apitest.myfatoorah.com/v2/SendPayment222'.","MessageDetail":"No route providing a controller name was found to match request URI 'https://apitest.myfatoorah.com/v2/SendPayment222'"}
@@ -588,13 +588,13 @@ class MyfatoorahApiV2
         // });
 
         $output = implode(
-            ',', array_map(
-                function ($v, $k) {
-                    return sprintf("%s=%s", $k, $v);
-                },
-                $dataArray,
-                array_keys($dataArray)
-            )
+                ',', array_map(
+                        function($v, $k) {
+                            return sprintf("%s=%s", $k, $v);
+                        },
+                        $dataArray,
+                        array_keys($dataArray)
+                )
         );
 
         //        $data      = utf8_encode($output);
@@ -650,10 +650,10 @@ class MyfatoorahApiV2
 
         $curl = curl_init('https://portal.myfatoorah.com/Files/API/mf-config.json');
         curl_setopt_array(
-            $curl, array(
+                $curl, array(
             CURLOPT_HTTPHEADER     => ['Content-Type: application/json'],
             CURLOPT_RETURNTRANSFER => true
-            )
+                )
         );
 
         $response  = curl_exec($curl);
