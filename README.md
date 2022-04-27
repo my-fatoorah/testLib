@@ -1,14 +1,5 @@
 # MyFatoorah - Library
 
-[![Latest Stable Version](https://img.shields.io/github/v/release/my-fatoorah/testLib.svg)](https://github.com/my-fatoorah/testLib/releases)
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![Software License](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![Build Status](https://scrutinizer-ci.com/g/my-fatoorah/testLib/badges/build.png?b=main)](https://scrutinizer-ci.com/g/my-fatoorah/testLib/build-status/main)
-[![Code Intelligence Status](https://scrutinizer-ci.com/g/my-fatoorah/testLib/badges/code-intelligence.svg?b=main)](https://scrutinizer-ci.com/code-intelligence)
-[![Total Downloads](http://poser.pugx.org/myfatoorah/lib-test/downloads)](https://packagist.org/packages/myfatoorah/lib-test)
-
-
-
 [![Latest Stable Version](http://poser.pugx.org/myfatoorah/lib-test/v)](https://github.com/my-fatoorah/testLib/releases)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Build Status](https://scrutinizer-ci.com/g/my-fatoorah/testLib/badges/build.png?b=main)](https://scrutinizer-ci.com/g/my-fatoorah/testLib/build-status/main)
