@@ -1,13 +1,19 @@
 # MyFatoorah - Library
 
-[![Latest Version](https://img.shields.io/github/release/myfatoorah/library.svg?style=flat-square)](https://github.com/myfatoorah/library/releases)
-[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
+[![Latest Version](https://img.shields.io/github/v/release/my-fatoorah/testLib.svg)](https://github.com/my-fatoorah/testLib/releases)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![Software License](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Build Status](https://scrutinizer-ci.com/g/my-fatoorah/testLib/badges/build.png?b=main)](https://scrutinizer-ci.com/g/my-fatoorah/testLib/build-status/main)
 [![Code Intelligence Status](https://scrutinizer-ci.com/g/my-fatoorah/testLib/badges/code-intelligence.svg?b=main)](https://scrutinizer-ci.com/code-intelligence)
-[![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/myfatoorah/library.svg?style=flat-square)](https://scrutinizer-ci.com/g/myfatoorah/library/code-structure)
-[![Quality Score](https://img.shields.io/scrutinizer/g/myfatoorah/library.svg?style=flat-square)](https://scrutinizer-ci.com/g/myfatoorah/library)
-[![Total Downloads](https://img.shields.io/packagist/dt/myfatoorah/library.svg?style=flat-square)](https://packagist.org/packages/myfatoorah/lib-test)
+[![Total Downloads](http://poser.pugx.org/myfatoorah/lib-test/downloads)](https://packagist.org/packages/myfatoorah/lib-test)
 
+
+
+[![Latest Stable Version](http://poser.pugx.org/myfatoorah/lib-test/v)](https://github.com/my-fatoorah/testLib/releases)
+[![License](http://poser.pugx.org/myfatoorah/lib-test/license)](https://www.gnu.org/licenses/gpl-3.0)
+[![PHP Version Require](http://poser.pugx.org/myfatoorah/lib-test/require/php)](https://packagist.org/packages/myfatoorah/lib-test)
+[![Build Status](https://scrutinizer-ci.com/g/my-fatoorah/testLib/badges/build.png?b=main)](https://scrutinizer-ci.com/g/my-fatoorah/testLib/build-status/main)
+[![Total Downloads](http://poser.pugx.org/myfatoorah/lib-test/downloads)](https://packagist.org/packages/myfatoorah/lib-test)
 
 MyFatoorah Payment Gateway PHP library. It is a PHP library to integrate MyFatoorah APIs with your website.
 
@@ -73,4 +79,4 @@ phpunit
 
 ## License
 
-The OSL-3.0 License.
+The GPL-3.0-only License.

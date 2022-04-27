@@ -146,8 +146,8 @@ class MyfatoorahApiV2
         //***************************************
         //check for errors
         //***************************************
+
         $error = $this->getAPIError($json, $res);
-        //$error = $this->{"getAPIError$request"}($json, $res);
         if ($error) {
             $this->log("$msgLog - Error: $error");
             throw new Exception($error);
@@ -157,81 +157,6 @@ class MyfatoorahApiV2
         //Success 
         //***************************************
         return $json;
-    }
-
-    //------------------------------------------------------------------------------
-
-    /**
-     * Handles POST Endpoint Errors Function
-     *
-     * @param object|string $json
-     * @param string        $res
-     * 
-     * @return string
-     */
-    protected function getAPIErrorPOST($json, $res)
-    {
-
-        if (isset($json->IsSuccess) && $json->IsSuccess == true) {
-            return null;
-        }
-
-        //Check for the errors
-        if (isset($json->ValidationErrors) || isset($json->FieldsErrors)) {
-            //$err = implode(', ', array_column($json->ValidationErrors, 'Error'));
-
-            $errorsObj = isset($json->ValidationErrors) ? $json->ValidationErrors : $json->FieldsErrors;
-            $blogDatas = array_column($errorsObj, 'Error', 'Name');
-
-            $err = implode(
-                    ', ', array_map(
-                            function($k, $v) {
-                                return "$k: $v";
-                            }, array_keys($blogDatas), array_values($blogDatas)
-                    )
-            );
-        } else if (isset($json->Data->ErrorMessage)) {
-            $err = $json->Data->ErrorMessage;
-        }
-
-        //if not get the message. this is due that sometimes errors with ValidationErrors has Error value null so either get the "Name" key or get the "Message"
-        //example {"IsSuccess":false,"Message":"Invalid data","ValidationErrors":[{"Name":"invoiceCreate.InvoiceItems","Error":""}],"Data":null}
-        //example {"Message":"No HTTP resource was found that matches the request URI 'https://apitest.myfatoorah.com/v2/SendPayment222'.","MessageDetail":"No route providing a controller name was found to match request URI 'https://apitest.myfatoorah.com/v2/SendPayment222'"}
-        if (empty($err)) {
-            $err = (isset($json->Message)) ? $json->Message : (!empty($res) ? $res : 'Kindly, review your MyFatoorah admin configuration due to a wrong entry.');
-        }
-        return $err;
-    }
-
-    //-----------------------------------------------------------------------------------------------------------------------------------------
-
-    /**
-     * Handles GET Endpoint Errors Function
-     * 
-     * @param object|string $json
-     * @param string        $res
-     * 
-     * @return string
-     */
-    protected function getAPIErrorGET($json, $res)
-    {
-
-        $stripHtmlStr = strip_tags($res);
-        if ($res != $stripHtmlStr) {
-            return trim(preg_replace('/\s+/', ' ', $stripHtmlStr));
-        }
-
-        $err = 'Kindly, review your MyFatoorah admin configuration due to a wrong entry.';
-
-        if (!$json) {
-            return $err;
-        }
-
-        if (isset($json->Message)) {
-            return $json->Message . ' ' . $err;
-        }
-
-        return null;
     }
 
     //-----------------------------------------------------------------------------------------------------------------------------------------
@@ -250,7 +175,7 @@ class MyfatoorahApiV2
         if (isset($json->IsSuccess) && $json->IsSuccess == true) {
             return '';
         }
-        
+
         //to avoid blocked IP <html><head><title>403 Forbidden</title></head><body><center><h1>403 Forbidden</h1></center><hr><center>Microsoft-Azure-Application-Gateway/v2</center></body></html>
         $stripHtmlStr = strip_tags($res);
         if ($res != $stripHtmlStr) {

@@ -38,7 +38,7 @@
         }
     ],
     "license": [
-        "OSL-3.0"
+        "GPL-3.0-only"
     ],
     "autoload": {
     	"files": ["autoload.php"],
