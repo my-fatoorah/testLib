@@ -219,7 +219,7 @@ class MyfatoorahApiV2
 
             return implode(
                     ', ', array_map(
-                            function($k, $v) {
+                            function ($k, $v) {
                                 return "$k: $v";
                             }, array_keys($blogDatas), array_values($blogDatas)
                     )
@@ -496,7 +496,7 @@ class MyfatoorahApiV2
 
         $output = implode(
                 ',', array_map(
-                        function($v, $k) {
+                        function ($v, $k) {
                             return sprintf("%s=%s", $k, $v);
                         },
                         $dataArray,
